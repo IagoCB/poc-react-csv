@@ -1,5 +1,10 @@
-import React from 'react';
-import { CSVLink } from "react-csv";
+import React, { useEffect } from 'react';
+import { CSVLink, CSVDownload } from "react-csv";
+import {
+  Box,
+  Button,
+} from '@mui/material';
+
 
 const headers = [
   { label: "First Name", key: "firstName" },
@@ -29,11 +34,34 @@ const csvReport = {
 };
 
 function App() {
+
+  const styles = {
+    buttonStyle:{
+      backgroundColor: 'black',
+      borderRadius: '10px',   
+      '&:hover': { 
+        backgroundColor: '#6c788e' 
+      },
+    },
+  }
+
+  useEffect(() => { <CSVDownload data={csvReport} filename={"my-file-test.csv"} /> })
   return (
-    <div classname="App">
-      <h3>Export data to CSV in React </h3>
-      <CSVLink {...csvReport}>Export to CSV</CSVLink>
-    </div>
+    <Box classname="App">
+      <h3>Export data to CSV in React, document: <a href='https://www.npmjs.com/package/react-csv'>npmjs</a>, 
+      <a href='https://stackoverflow.com/questions/53504924/reactjs-download-csv-file-on-button-click'> stackoverflow</a>  </h3>
+      <Button sx={styles.buttonStyle}>
+        <CSVLink {...csvReport} target='_blank' style={
+            {
+              color:'white', 
+              textDecoration: 'none' 
+            }
+          }>
+          Export to CSVLink
+        </CSVLink>
+      </Button>
+      
+    </Box>
   );
 }
 
